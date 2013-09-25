@@ -3,7 +3,7 @@ package com.example.java;
 import akka.actor.*;
 
 public class Greeter extends UntypedActor {
-    public static enum Msg {
+    public enum Msg {
         GREET, DONE;
     }
 
@@ -16,5 +16,4 @@ public class Greeter extends UntypedActor {
             unhandled( msg );
         }
     }
-
 }

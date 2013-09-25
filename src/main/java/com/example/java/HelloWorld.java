@@ -16,7 +16,8 @@ public class HelloWorld extends UntypedActor {
         if ( msg == Greeter.Msg.DONE ) {
             // when the greeter is done, stop this actor and with it the application
             getContext().stop( getSelf() );
-        } else
+        } else {
             unhandled( msg );
+        }
     }
 }
