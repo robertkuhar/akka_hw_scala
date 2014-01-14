@@ -281,8 +281,9 @@ public class FaultHandlingDocSample {
         void initStorage() {
             storage = getContext().watch( getContext().actorOf( Props.create( Storage.class ), "storage" ) );
             // Tell the counter, if any, to use the new storage
-            if ( counter != null )
+            if ( counter != null ) {
                 counter.tell( new UseStorage( storage ), getSelf() );
+            }
             // We need the initial value to be able to operate
             storage.tell( new Get( key ), getSelf() );
         }
@@ -327,8 +328,9 @@ public class FaultHandlingDocSample {
             // the counter. Before that we place the messages in a backlog, to be sent
             // to the counter when it is initialized.
             if ( counter == null ) {
-                if ( backlog.size() >= MAX_BACKLOG )
+                if ( backlog.size() >= MAX_BACKLOG ) {
                     throw new ServiceUnavailable( "CounterService not available," + " lack of initial value" );
+                }
                 backlog.add( new SenderMsgPair( getSender(), msg ) );
             } else {
                 counter.forward( msg, getContext() );
@@ -480,8 +482,9 @@ public class FaultHandlingDocSample {
         }
 
         public synchronized void save( String key, Long value ) throws StorageException {
-            if ( 11 <= value && value <= 14 )
+            if ( 11 <= value && value <= 14 ) {
                 throw new StorageException( "Simulated store failure " + value );
+            }
             db.put( key, value );
         }
 
